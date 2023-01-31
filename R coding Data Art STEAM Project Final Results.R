@@ -1,0 +1,57 @@
+#Week 3: Data Analytics using Basic Data Exploration
+#Load the “readr” library to bring in the dataset
+install.packages("readr")
+install.packages("tidyverse")
+library(readr)
+library(tidyverse)
+#Download the data set
+df= read_csv('https://raw.githubusercontent.com/lgellis/STEM/master/DATA-ART-1/Data/FinalData.csv', col_names = TRUE)
+df
+#R HEAD FUNCTION
+
+head(df, 10)
+#DIM FUNCTIONS
+dim(df)
+#Displays the type and a preview of all columns as a row using glimpse from “dplyr” library
+install.packages("dplyr")
+library(dplyr)
+glimpse(df)
+View(df)
+summary(df)
+#skimr skim function
+install.packages("skimr")
+library(skimr)
+skim(df)
+#VISDAT VIS_DAT FUNCTION
+install.packages("devtools")
+library(devtools)
+devtools::install_github("ropensci/visdat")
+library(visdat)
+vis_miss(df)
+vis_dat(df)
+#DATAEXPLORER CREATE_REPORT FUNCTION 
+install.packages("DataExplorer")
+if (!require(devtools)) install.packages("devtools")
+devtools::install_github("boxuancui/DataExplorer")
+library(DataExplorer)
+DataExplorer::create_report(df)
+install.packages("inspectdf")
+library(inspectdf)
+
+#We will use allGrades for the single data frame analysis and oldGrades and youngGrades for the data frame comparisons. 
+allGrades <- df
+oldGrades <- allGrades %>% filter(Grade > 5)
+oldGrades
+youngGrades <- allGrades %>% filter(Grade < 6)
+youngGrades
+#View the distribution of grade to ensure it was split properly
+install.packages("ggplot2")
+library(ggplot2)
+ggplot(oldGrades, aes(x=Grade)) + geom_histogram()
+ggplot(youngGrades, aes(x=Grade)) + geom_histogram()
+inspect_types(allGrades) %>% show_plot()
+inspect_mem(df) 
+inspect_mem(allGrades)
+inspect_num(allGrades) %>% show_plot()
+
+#https://www.littlemissdata.com/blog/steam-data-art2
